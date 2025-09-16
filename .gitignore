@@ -1,0 +1,13 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# SQLite database
+database/media.db
+
+# Node.js
+node_modules/
+
+# Logs
+*.log
