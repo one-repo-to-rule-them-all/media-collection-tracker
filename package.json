@@ -11,7 +11,7 @@
     "backend": "python -m uvicorn backend.main:app --reload",
     "frontend": "cd frontend && npm start",
     "start": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cd tests/ && pytest -v"
   },
   "keywords": [],
   "author": "",
