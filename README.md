@@ -65,7 +65,6 @@ cd media-collection-tracker
 ### 3. Run the project using npm
 
 ```bash
-npm install       # Install npm dependencies
 npm run start     # Automatically sets up backend, database, and starts frontend + backend
 ```
 
@@ -77,7 +76,6 @@ npm run start     # Automatically sets up backend, database, and starts frontend
 
 No manual Python environment setup is required beyond having Python installed.
 
-`
 
 ---
 
@@ -86,7 +84,7 @@ No manual Python environment setup is required beyond having Python installed.
 ```bash
 - API root: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
 - API docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-``
+```
 
 ### Add New Item
 POST `/items`  
@@ -110,16 +108,22 @@ PUT `/items/{id}`
 ## 🧪 Testing the Backend
 
 1. Ensure your virtual environment is active (`(venv)` should appear in terminal).  
-2. Install pytest if not already installed:  
+2. Install pytest if not already installed, else skip step:  
 ```bash
 cd tests
 pip install pytest
 ```  
 3. Run tests with:  
 ```bash
+npm run test
+```  
+4. Run specific test with:
+```bash
 pytest -v 
 pytest -v test_database.py
-```  
+pytest -v test_main.py
+```
+
 Tests cover:
 - Adding an item
 - Reading items
