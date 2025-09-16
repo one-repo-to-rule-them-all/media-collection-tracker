@@ -49,7 +49,7 @@ class MediaItemUpdate(BaseModel):
 
 @app.get("/")
 def home():
-    return {"message": "Welcome to Book/Media Tracker!"}
+    return {"message": "Welcome to the Media Collection Tracker API!"}
 
 # Get all items
 @app.get("/items")

@@ -112,11 +112,13 @@ PUT `/items/{id}`
 1. Ensure your virtual environment is active (`(venv)` should appear in terminal).  
 2. Install pytest if not already installed:  
 ```bash
+cd tests
 pip install pytest
 ```  
 3. Run tests with:  
 ```bash
-pytest -v tests/
+pytest -v 
+pytest -v test_database.py
 ```  
 Tests cover:
 - Adding an item

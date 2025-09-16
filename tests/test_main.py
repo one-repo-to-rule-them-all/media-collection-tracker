@@ -1,8 +1,14 @@
 from fastapi.testclient import TestClient
-from main import app
+from backend.main import app
 
 client = TestClient(app)
 
+# Basic test to check if the API is running
+def test_read_main():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Welcome to the Media Collection Tracker API!"}
+    
 def test_add_item():
     response = client.post("/items", json={
         "title": "Test Book",
