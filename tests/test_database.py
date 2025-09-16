@@ -4,9 +4,10 @@ import os
 from backend.main import app
 from fastapi.testclient import TestClient
 
-client = TestClient(app)
+#client = TestClient(app)
 
 # Integration test to check database operations
+# we can also use pytest fixtures for setup/teardown if needed
 def test_database_insert_and_retrieve():
     # Create a temp DB
     db_fd, db_path = tempfile.mkstemp()
