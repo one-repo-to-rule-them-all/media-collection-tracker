@@ -20,5 +20,5 @@ def setup_database():
         print("No database setup script found. Skipping.")
 
 if __name__ == "__main__":
-    #install_requirements()
+    install_requirements()
     setup_database()
