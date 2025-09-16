@@ -27,13 +27,24 @@ This project demonstrates the use of **FastAPI (backend)**, **SQLite (database)*
 
 ## 📂 Project Structure
 ```
-book-tracker/
-│-- main.py              # FastAPI backend with full CRUD
-│-- database_setup.py    # Creates SQLite database and table
-│-- media.db             # SQLite database file
-│-- test_main.py         # Automated tests for CRUD operations
-│-- README.md            # Project documentation
-│-- venv/                # Virtual environment (optional)
+media-collection-tracker/
+│-- backend/
+│   │-- main.py
+│   │-- requirements.txt
+│-- database/
+│   │-- media.db
+│   │-- database_setup.py
+│-- frontend/
+│   │-- package.json
+│   │-- src/
+│       │-- App.jsx
+│       │-- index.jsx
+│       │-- components/
+│-- tests/
+│   │-- test_main.py
+│-- package.json
+|-- prestart.py
+│-- README.md
 ```
 
 ---
@@ -42,38 +53,40 @@ book-tracker/
 
 ### 1. Clone or Create Project
 ```bash
-mkdir book-tracker
-cd book-tracker
+git clone git@github.com:one-repo-to-rule-them-all/media-collection-tracker.git
+cd media-collection-tracker
 ```
 
-### 2. Create Virtual Environment
-```bash
-python -m venv venv
-```
-Activate:
-- **Windows (PowerShell):** `.env\Scriptsctivate`  
-- **Mac/Linux (bash/zsh):** `source venv/bin/activate`
+### 2. Ensure Python and Node.js are installed
 
-### 3. Install Dependencies
-```bash
-pip install fastapi uvicorn pytest
-```
+* Python 3.x (with pip)
+* Node.js and npm
 
-### 4. Setup Database
+### 3. Run the project using npm
+
 ```bash
-python database_setup.py
+npm install       # Install npm dependencies
+npm run start     # Automatically sets up backend, database, and starts frontend + backend
 ```
 
-### 5. Run Backend Server
-```bash
-uvicorn main:app --reload
-```
-- API root: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
-- API docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+✅ The `prestart` script will:
+
+1. Install Python backend dependencies if not already installed.
+2. Initialize the SQLite database if missing.
+3. Seed the database with sample data if the table is empty.
+
+No manual Python environment setup is required beyond having Python installed.
+
+`
 
 ---
 
-## 🔍 Example Usage
+## 🔍 API Usage
+
+```bash
+- API root: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
+- API docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+``
 
 ### Add New Item
 POST `/items`  
@@ -86,22 +99,6 @@ POST `/items`
 }
 ```
 
-### Get All Items
-GET `/items`  
-Response:
-```json
-[
-  {
-    "id": 1,
-    "title": "The Hobbit",
-    "creator": "J.R.R. Tolkien",
-    "category": "book",
-    "status": "unread",
-    "created_at": "2025-09-16 12:34:56"
-  }
-]
-```
-
 ### Update Item
 PUT `/items/{id}`  
 ```json
@@ -109,11 +106,6 @@ PUT `/items/{id}`
   "status": "completed"
 }
 ```
-
-### Delete Item
-DELETE `/items/{id}`
-
----
 
 ## 🧪 Testing the Backend
 
@@ -124,7 +116,7 @@ pip install pytest
 ```  
 3. Run tests with:  
 ```bash
-pytest -v
+pytest -v tests/
 ```  
 Tests cover:
 - Adding an item
@@ -135,12 +127,31 @@ Tests cover:
 
 ---
 
+## Notes
+
+* Backend automatically uses the SQLite database in `database/media.db`
+* Frontend (React) is configured to interact with the backend API
+* npm scripts include a `prestart` script to automatically install backend dependencies and populate database
+
+---
+
 ## 📌 Next Steps
 - Build React frontend to interact with API visually
 - Add filtering/searching in frontend
 - Deploy to cloud for remote access
 
 ---
+
+## Final Remarks
+
+This project demonstrates modern software engineering practices:
+
+* Full-stack application structure
+* Clean folder organization
+* Automated testing
+* Documentation and setup automation
+* Easily extensible for updates, deletes, or cloud deployment
+
 
 ## 👨‍💻 Author
 Developed by **Rodolfo Baez Jr** (RBJ Engineering Services LLC)  

@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "prestart": "python prestart.py",
+    "prestart": "npm  install && python prestart.py",
     "backend": "python -m uvicorn backend.main:app --reload",
     "frontend": "cd frontend && npm start",
     "start": "concurrently \"npm run backend\" \"npm run frontend\"",
