@@ -1,7 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
 import os
+from typing import Optional
 
 # Ensure the database directory exists
 os.makedirs("database", exist_ok=True)
@@ -28,20 +31,37 @@ def get_db_connection():
 app = FastAPI(title="Book/Media Collection Tracker")
 
 
+# Allow your frontend (React dev server runs on http://localhost:5173 by default for Vite, 
+# or http://localhost:3000 for CRA)
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,   # or ["*"] for everything
+    allow_credentials=True,
+    allow_methods=["*"],     # allows GET, POST, PUT, DELETE, OPTIONS
+    allow_headers=["*"],
+)
+
 # ============================
 # Pydantic Model (for validation)
 # ============================
 class MediaItem(BaseModel):
     title: str
-    creator: str = None
+    creator: Optional[str] = ""  # author/director/etc.
     category: str  # "book", "movie", "game"
     status: str = "unread"  # default
 
 class MediaItemUpdate(BaseModel):
-    title: str = None
-    creator: str = None
-    category: str = None
-    status: str = None
+    title: Optional[str] = None
+    creator: Optional[str] = None
+    category: Optional[str] = None
+    status: Optional[str] = None
 
 # ============================
 # Routes

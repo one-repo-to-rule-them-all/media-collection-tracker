@@ -142,7 +142,8 @@ Tests cover:
 ---
 
 ## 📌 Next Steps
-- Build React frontend to interact with API visually
+- Build React frontend to interact with API visually 
+  - introduce this section or something npx create-react-app frontend
 - Add filtering/searching in frontend
 - Deploy to cloud for remote access
 
