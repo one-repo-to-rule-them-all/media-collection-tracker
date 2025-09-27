@@ -77,7 +77,7 @@ class MediaItemUpdate(BaseModel):
 @app.get("/")
 def home():
     logger.info("Home endpoint called")
-    return {"message": "Welcome to the Media Collection Tracker API!\n\n"}
+    return {"message": "Welcome to the Media Collection Tracker API!"}
 
 # Get all items
 @app.get("/items")
