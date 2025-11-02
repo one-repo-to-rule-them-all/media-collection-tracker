@@ -1,7 +1,3 @@
-Here’s an updated version of your README, keeping all original content, but reflecting that the frontend is now completed with validation and minor tweaks for clarity and accuracy:
-
----
-
 # 📚 Book/Media Collection Tracker
 
 A beginner-friendly **full-stack project** to track books, movies, and games.
