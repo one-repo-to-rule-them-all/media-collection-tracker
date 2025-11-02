@@ -178,6 +178,10 @@ Tests cover:
 * Add update and delete capability in frontend
 * Add logic to not allow duplicate entries
 * Create a script to revert db back to original state
+* Add frontend test using Jest/React Testing Library
+* Use a config.py (backend) or .env file for environment-specific settings
+* In python: from dotenv import load_doteng
+* In React: .env with REACT_APP_API_BASE=http://127.0.0.1:8000
 * Setup docker containerization
 * Deploy to cloud for remote access
 
