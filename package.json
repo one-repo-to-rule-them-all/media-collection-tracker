@@ -8,9 +8,14 @@
   },
   "scripts": {
     "prestart": "npm  install && python prestart.py",
-    "backend": "python -m uvicorn backend.main:app --reload",
+    "backend1": "python -m uvicorn backend.main:app --reload",
+    "frontend1": "cd frontend && npm start",
+    "start1": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && uvicorn main:app --reload --reload-dir .",
     "frontend": "cd frontend && npm start",
-    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "start3": "concurrently -n BACKEND,FRONTEND -c \"blue,green\" \"npm run backend\" \"npm run frontend\"",
+    "start": "concurrently --kill-others-on-fail false -n BACKEND,FRONTEND -c \"blue,green\" \"npm run backend\" \"npm run frontend\"",
+
     "test": "cd tests/ && pytest -v"
   },
   "keywords": [],

@@ -9,7 +9,7 @@ export async function fetchItems() {
 export async function addItem(item) {
   const payload = {
     title: item.title,
-    creator: item.creator || null,
+    creator: item.creator || "unknown",
     category: item.category,
     status: item.status || "unread",
   };

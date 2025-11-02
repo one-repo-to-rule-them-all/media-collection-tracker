@@ -1,31 +1,39 @@
+Here’s an updated version of your README, keeping all original content, but reflecting that the frontend is now completed with validation and minor tweaks for clarity and accuracy:
+
+---
+
 # 📚 Book/Media Collection Tracker
 
-A beginner-friendly **full-stack project** to track books, movies, and games.  
-This project demonstrates the use of **FastAPI (backend)**, **SQLite (database)**, and later a **React frontend**.
+A beginner-friendly **full-stack project** to track books, movies, and games.
+This project demonstrates the use of **FastAPI (backend)**, **SQLite (database)**, and a **React frontend** with form validation.
 
 ---
 
 ## 🚀 Features
-- Add new items (book, movie, or game)
-- View all items in the collection
-- Track status (`unread`, `in-progress`, `completed`)
-- Full CRUD support (Create, Read, Update, Delete)
-- SQLite database storage
-- Auto-generated API docs with FastAPI
-- Basic automated tests with pytest
+
+* Add new items (book, movie, or game) with **validated fields**
+* View all items in the collection
+* Track status (`unread`, `in-progress`, `read/watched`, `wishlist`)
+* Full CRUD support (Create, Read, Update, Delete)
+* SQLite database storage
+* Auto-generated API docs with FastAPI
+* Frontend form validation to prevent empty required fields
+* Basic automated tests with pytest
 
 ---
 
 ## 🛠️ Tech Stack
-- **Backend:** FastAPI (Python)
-- **Database:** SQLite
-- **Frontend (coming soon):** React + Tailwind CSS
-- **Server:** Uvicorn
-- **Testing:** pytest
+
+* **Backend:** FastAPI (Python)
+* **Database:** SQLite
+* **Frontend:** React + Tailwind CSS
+* **Server:** Uvicorn
+* **Testing:** pytest
 
 ---
 
 ## 📂 Project Structure
+
 ```
 media-collection-tracker/
 │-- backend/
@@ -40,10 +48,11 @@ media-collection-tracker/
 │       │-- App.jsx
 │       │-- index.jsx
 │       │-- components/
+│           │-- AddItemForm.jsx   # frontend form with validation
 │-- tests/
 │   │-- test_main.py
 │-- package.json
-|-- prestart.py
+│-- prestart.py
 │-- README.md
 ```
 
@@ -52,6 +61,7 @@ media-collection-tracker/
 ## 🔧 Setup Instructions
 
 ### 1. Clone or Create Project
+
 ```bash
 git clone git@github.com:one-repo-to-rule-them-all/media-collection-tracker.git
 cd media-collection-tracker
@@ -73,9 +83,9 @@ npm run start     # Automatically sets up backend, database, and starts frontend
 1. Install Python backend dependencies if not already installed.
 2. Initialize the SQLite database if missing.
 3. Seed the database with sample data if the table is empty.
+4. Install frontend dependencies automatically.
 
 No manual Python environment setup is required beyond having Python installed.
-
 
 ---
 
@@ -87,7 +97,9 @@ No manual Python environment setup is required beyond having Python installed.
 ```
 
 ### Add New Item
-POST `/items`  
+
+POST `/items`
+
 ```json
 {
   "title": "The Hobbit",
@@ -98,26 +110,41 @@ POST `/items`
 ```
 
 ### Update Item
-PUT `/items/{id}`  
+
+PUT `/items/{id}`
+
 ```json
 {
-  "status": "completed"
+  "status": "read"
 }
 ```
 
+---
+
 ## 🧪 Testing the Backend
 
-1. Ensure your virtual environment is active (`(venv)` should appear in terminal).  
-2. Install pytest if not already installed, else skip step:  
+1. In a bash terminal, ensure your virtual environment is active (`(venv)` should appear in terminal).
+
 ```bash
 cd tests
-pip install pytest
-```  
-3. Run tests with:  
+python3 -m venv venv
+venv\Scripts\active or 
+source venv/Scripts/activate
+```
+2. Install pytest if not already installed, else skip step:
+
 ```bash
-npm run test
-```  
+pip install pytest
+```
+
+3. Run tests with:
+
+```bash
+npm run tests
+```
+
 4. Run specific test with:
+
 ```bash
 pytest -v 
 pytest -v test_database.py
@@ -125,27 +152,34 @@ pytest -v test_main.py
 ```
 
 Tests cover:
-- Adding an item
-- Reading items
-- Updating an item
-- Deleting an item
-- Edge cases (e.g., deleting non-existent items)
+
+* Adding an item
+* Reading items
+* Updating an item
+* Deleting an item
+* Edge cases (e.g., deleting non-existent items)
 
 ---
 
 ## Notes
 
 * Backend automatically uses the SQLite database in `database/media.db`
-* Frontend (React) is configured to interact with the backend API
-* npm scripts include a `prestart` script to automatically install backend dependencies and populate database
+* Frontend (React) is now fully functional and validates required fields (`title`, `creator`, `category`, `status`) before submission
+* npm scripts include a `prestart` script to automatically install backend dependencies, populate database, and install frontend dependencies
+* Frontend and backend are run concurrently via `npm run start`, if making changes you should just run `npm run backend` and `npm run frontend` in their own bash terminal
 
+✅ Tip: Always activate the virtual environment before running backend scripts, e.g., python prestart.py or uvicorn main:app --reload.
 ---
 
 ## 📌 Next Steps
-- Build React frontend to interact with API visually 
-  - introduce this section or something npx create-react-app frontend
-- Add filtering/searching in frontend
-- Deploy to cloud for remote access
+
+* Add filtering/searching in frontend
+* Add more detailed status options if needed (e.g., “Not Started”, “In Progress”, “Completed”, “Wishlist”)
+* Add update and delete capability in frontend
+* Add logic to not allow duplicate entries
+* Create a script to revert db back to original state
+* Setup docker containerization
+* Deploy to cloud for remote access
 
 ---
 
@@ -159,8 +193,10 @@ This project demonstrates modern software engineering practices:
 * Documentation and setup automation
 * Easily extensible for updates, deletes, or cloud deployment
 
+---
 
 ## 👨‍💻 Author
-Developed by **Rodolfo Baez Jr** (RBJ Engineering Services LLC)  
-📧 rbjengineeringservices.llc@gmail.com  
+
+Developed by **Rodolfo Baez Jr** (RBJ Engineering Services LLC)
+📧 [rbjengineeringservices.llc@gmail.com](mailto:rbjengineeringservices.llc@gmail.com)
 🔗 [LinkedIn](https://www.linkedin.com/in/rodolfo-baez-jr-8b9830b0/)

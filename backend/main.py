@@ -77,12 +77,12 @@ class MediaItemUpdate(BaseModel):
 @app.get("/")
 def home():
     logger.info("Home endpoint called")
-    return {"message": "Welcome to the Media Collection Tracker API!"}
+    return {"message": "Welcome to the Media Collection Tracker API, lets!"}
 
 # Get all items
 @app.get("/items")
 def get_items():
-    logger.info("Fetching all media items\n")
+    logger.info("Fetching all media items available\n")
     conn = get_db_connection()
     items = conn.execute("SELECT * FROM media_items").fetchall()
     conn.close()
@@ -93,12 +93,13 @@ def get_items():
 # Add a new item
 @app.post("/items")
 def add_item(item: MediaItem):
-    logger.info(f"Adding new item: {item.dict()}\n")
+    logger.info(f"Adding new item(S): {item.dict()}\n")
     conn = get_db_connection()
     cursor = conn.cursor()
+    creator_value = item.creator if item.creator else "Unknown"
     cursor.execute(
         "INSERT INTO media_items (title, creator, category, status) VALUES (?, ?, ?, ?)",
-        (item.title, item.creator, item.category, item.status),
+        (item.title, creator_value, item.category, item.status),
     )
     conn.commit()
     new_id = cursor.lastrowid
