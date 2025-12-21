@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - ./database:/app/database   # mount local database folder
+      - ./backend:/app             # optional: for live reload
+    ports:
+      - "${PORT_BACKEND}:8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - backend
+    ports:
+      - "${PORT_FRONTEND}:3000"
+    volumes:
+      - ./frontend:/app             # optional: for live reload
+    stdin_open: true
+    tty: true

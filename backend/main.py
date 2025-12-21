@@ -19,7 +19,8 @@ os.makedirs("database", exist_ok=True)
 # Database setup
 # --------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "../database/media.db")
+DB_PATH = os.path.join(BASE_DIR, "../database/media.db") # local setup
+DB_PATH1 = os.getenv("DATABASE_PATH", "../database/media.db") # for docker containers
 #DB_PATH = os.path.join(BASE_DIR, "../backend/database/media.db")
 
 # ============================

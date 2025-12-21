@@ -32,5 +32,5 @@ def setup_database():
 
 if __name__ == "__main__":
     install_backend_requirements()
-    install_frontend_requirements()
+    #install_frontend_requirements()
     setup_database()

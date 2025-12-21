@@ -1,30 +1,25 @@
 {
   "name": "project-1-book-media-collection-tracker",
   "version": "1.0.0",
-  "description": "A beginner-friendly **full-stack project** to track books, movies, and games.   This project demonstrates the use of **FastAPI (backend)**, **SQLite (database)**, and later a **React frontend**.",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
+  "description": "Full-stack project to track books, movies, and games with FastAPI backend, SQLite database, and React frontend.",
   "scripts": {
-    "prestart": "npm  install && python prestart.py",
-    "backend1": "python -m uvicorn backend.main:app --reload",
-    "frontend1": "cd frontend && npm start",
-    "start1": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "backend": "cd backend && uvicorn main:app --reload --reload-dir .",
-    "frontend": "cd frontend && npm start",
-    "start3": "concurrently -n BACKEND,FRONTEND -c \"blue,green\" \"npm run backend\" \"npm run frontend\"",
-    "start": "concurrently --kill-others-on-fail false -n BACKEND,FRONTEND -c \"blue,green\" \"npm run backend\" \"npm run frontend\"",
 
-    "test": "cd tests/ && pytest -v"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^9.2.1"
+    "backend:install": "pip install -r backend/requirements.txt",
+    "backend:start": "cd backend && uvicorn main:app --reload --reload-dir .",
+    "backend:prestart": "python backend/prestart_backend.py",
+
+    "frontend:start": "cd frontend && npm start",
+    "frontend:install": "cd frontend && npm install",
+
+    "start": "concurrently -n BACKEND,FRONTEND -c \"blue,green\" \"npm run backend:start\" \"npm run frontend:start\"",
+    "dev": "npm run backend:prestart && npm run start",
+
+    "test": "cd tests && pytest -v"
   },
   "dependencies": {
-
-  }
+    "concurrently": "^9.2.1"
+  },
+  "devDependencies": {},
+  "author": "Rodolfo Baez Jr",
+  "license": "ISC"
 }

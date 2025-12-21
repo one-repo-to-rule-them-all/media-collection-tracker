@@ -1,4 +1,6 @@
 const BASE_URL = "http://127.0.0.1:8000"; // Backend URL
+const BASE_URL1 = process.env.REACT_APP_API_URL;// || "http://localhost:8000"; // for docker setups
+
 
 export async function fetchItems() {
   const response = await fetch(`${BASE_URL}/items`);

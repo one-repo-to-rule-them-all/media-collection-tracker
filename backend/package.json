@@ -1,0 +1,23 @@
+{
+  "name": "project-1-book-media-collection-tracker",
+  "version": "1.0.0",
+  "description": "A beginner-friendly **full-stack project** to track books, movies, and games.   This project demonstrates the use of **FastAPI (backend)**, **SQLite (database)**, and later a **React frontend**.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+  "prestart": "pip install -r requirements.txt && python prestart_backend.py",
+  "start": "uvicorn main:app --reload"
+  },
+
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+
+  } 
+}
