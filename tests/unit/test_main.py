@@ -21,13 +21,6 @@ class TestMediaItem:
 import pytest
 from backend.main import MediaItemUpdate
 
-class TestMediaItemUpdate:
-    """Test suite for MediaItemUpdate."""
-    
-    def setup_method(self):
-        """Setup test fixtures."""
-        self.instance = MediaItemUpdate()
-    
 """Unit tests for get_db_connection function."""
 import pytest
 from backend.main import get_db_connection
@@ -37,72 +30,11 @@ def test_get_db_connection_basic():
     # TODO: Add test implementation
     pass
 
-def test_get_db_connection_edge_cases():
-    """Test edge cases for get_db_connection."""
-    # TODO: Add test implementation
-    pass
 """Unit tests for home function."""
 import pytest
 from backend.main import home
 
 def test_home_basic():
     """Test basic functionality of home."""
-    # TODO: Add test implementation
-    pass
-
-def test_home_edge_cases():
-    """Test edge cases for home."""
-    # TODO: Add test implementation
-    pass
-"""Unit tests for get_items function."""
-import pytest
-from backend.main import get_items
-
-def test_get_items_basic():
-    """Test basic functionality of get_items."""
-    # TODO: Add test implementation
-    pass
-
-def test_get_items_edge_cases():
-    """Test edge cases for get_items."""
-    # TODO: Add test implementation
-    pass
-"""Unit tests for add_item function."""
-import pytest
-from backend.main import add_item
-
-def test_add_item_basic():
-    """Test basic functionality of add_item."""
-    # TODO: Add test implementation
-    pass
-
-def test_add_item_edge_cases():
-    """Test edge cases for add_item."""
-    # TODO: Add test implementation
-    pass
-"""Unit tests for update_item function."""
-import pytest
-from backend.main import update_item
-
-def test_update_item_basic():
-    """Test basic functionality of update_item."""
-    # TODO: Add test implementation
-    pass
-
-def test_update_item_edge_cases():
-    """Test edge cases for update_item."""
-    # TODO: Add test implementation
-    pass
-"""Unit tests for delete_item function."""
-import pytest
-from backend.main import delete_item
-
-def test_delete_item_basic():
-    """Test basic functionality of delete_item."""
-    # TODO: Add test implementation
-    pass
-
-def test_delete_item_edge_cases():
-    """Test edge cases for delete_item."""
     # TODO: Add test implementation
     pass

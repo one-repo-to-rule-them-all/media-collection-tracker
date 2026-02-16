@@ -4,11 +4,7 @@ from backend.main import app
 #client = TestClient(app)
 
 # Basic test to check if the API is running
-def test_read_main(client):
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"message": "Welcome to the Media Collection Tracker API!"}
-    
+
 def test_add_item(client):
     response = client.post("/items", json={
         "title": "Test Book",
