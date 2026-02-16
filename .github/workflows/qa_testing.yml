@@ -61,8 +61,10 @@ jobs:
       continue-on-error: true
       run: |
         pytest tests/ --cov=backend --cov=database --cov-report=xml --cov-report=html --cov-report=term -v > test_output.txt 2>&1
-        echo "::set-output name=exit_code::$?"
+        TEST_EXIT_CODE=$?
+        echo "exit_code=$TEST_EXIT_CODE" >> $GITHUB_OUTPUT
         cat test_output.txt
+        exit $TEST_EXIT_CODE
     
     - name: Upload Coverage to Codecov
       uses: codecov/codecov-action@v3
