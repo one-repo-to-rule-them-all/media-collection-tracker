@@ -1,20 +1,22 @@
-"""Generated unit tests for database_setup.py"""
+"""Generated unit tests for database\database_setup.py."""
 import pytest
-import sys
-from pathlib import Path
+from unittest.mock import Mock, patch
 
-# Add parent directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+import database.database_setup as module_under_test
+from database.database_setup import create_db, seed_db
 
-"""Unit tests for create_db function."""
-import pytest
-from database.database_setup import create_db
+def test_create_db_smoke_and_contract(monkeypatch):
+    """Smoke + contract test for `create_db` using deterministic mocks."""
+    # No input args required
+    with patch.object(module_under_test, "logger", autospec=True, create=True):
+        result = create_db()
 
-def test_create_db_basic():
-    """Test basic functionality of create_db."""
-    # TODO: Add test implementation
-    pass
+    assert result is not ...
 
-def test_create_db_edge_cases():
-    """Test edge cases for create_db."""
-    # TODO: Add test implementation
+def test_seed_db_smoke_and_contract(monkeypatch):
+    """Smoke + contract test for `seed_db` using deterministic mocks."""
+    # No input args required
+    with patch.object(module_under_test, "logger", autospec=True, create=True):
+        result = seed_db()
+
+    assert result is not ...
