@@ -77,7 +77,7 @@ class MediaItemUpdate(BaseModel):
 @app.get("/")
 def home():
     logger.info("Home endpoint called")
-    return {"message": "Welcome to the Media Collection Tracker API, lets!"}
+    return {"message": "Welcome to the Media Collection Tracker API!"}
 
 # Get all items
 @app.get("/items")
@@ -93,7 +93,7 @@ def get_items():
 # Add a new item
 @app.post("/items")
 def add_item(item: MediaItem):
-    logger.info(f"Adding new item(S): {item.dict()}\n")
+    logger.info(f"Adding new item(S): {item.model_dump()}\n")
     conn = get_db_connection()
     cursor = conn.cursor()
     creator_value = item.creator if item.creator else "Unknown"
@@ -110,7 +110,7 @@ def add_item(item: MediaItem):
 # Update an item
 @app.put("/items/{item_id}")
 def update_item(item_id: int, item: MediaItemUpdate):
-    logger.info(f"Updating item {item_id} with data: {item.dict(exclude_unset=True)}\n")
+    logger.info(f"Updating item {item_id} with data: {item.model_dump(exclude_unset=True)}\n")
     conn = get_db_connection()
     cursor = conn.cursor()
 
@@ -124,7 +124,7 @@ def update_item(item_id: int, item: MediaItemUpdate):
     # Update only fields that were provided
     update_fields = []
     values = []
-    for field, value in item.dict(exclude_unset=True).items():
+    for field, value in item.model_dump(exclude_unset=True).items():
         update_fields.append(f"{field} = ?")
         values.append(value)
 

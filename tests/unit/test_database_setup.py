@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 """Unit tests for create_db function."""
 import pytest
-from database_setup import create_db
+from database.database_setup import create_db
 
 def test_create_db_basic():
     """Test basic functionality of create_db."""
@@ -21,7 +21,7 @@ def test_create_db_edge_cases():
     pass
 """Unit tests for seed_db function."""
 import pytest
-from database_setup import seed_db
+from database.database_setup import seed_db
 
 def test_seed_db_basic():
     """Test basic functionality of seed_db."""
