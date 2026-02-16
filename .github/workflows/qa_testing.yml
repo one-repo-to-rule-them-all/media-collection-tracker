@@ -158,7 +158,7 @@ jobs:
       if: steps.unit_tests.outputs.exit_code != '0' && github.event_name == 'push'
       uses: peter-evans/create-pull-request@v5
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.gh_token }}
         branch: ${{ steps.create_branch.outputs.BRANCH_NAME }}
         base: ${{ github.ref_name }}
         title: "🤖 Automated Test Fix Recommendations"
