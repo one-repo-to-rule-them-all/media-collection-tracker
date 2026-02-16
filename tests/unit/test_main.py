@@ -8,18 +8,18 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 """Unit tests for MediaItem class."""
 import pytest
-from main import MediaItem
+from backend.main import MediaItem
 
 class TestMediaItem:
     """Test suite for MediaItem."""
     
     def setup_method(self):
         """Setup test fixtures."""
-        self.instance = MediaItem()
+        self.instance = MediaItem(title="Example", category="book")
     
 """Unit tests for MediaItemUpdate class."""
 import pytest
-from main import MediaItemUpdate
+from backend.main import MediaItemUpdate
 
 class TestMediaItemUpdate:
     """Test suite for MediaItemUpdate."""
@@ -30,7 +30,7 @@ class TestMediaItemUpdate:
     
 """Unit tests for get_db_connection function."""
 import pytest
-from main import get_db_connection
+from backend.main import get_db_connection
 
 def test_get_db_connection_basic():
     """Test basic functionality of get_db_connection."""
@@ -43,7 +43,7 @@ def test_get_db_connection_edge_cases():
     pass
 """Unit tests for home function."""
 import pytest
-from main import home
+from backend.main import home
 
 def test_home_basic():
     """Test basic functionality of home."""
@@ -56,7 +56,7 @@ def test_home_edge_cases():
     pass
 """Unit tests for get_items function."""
 import pytest
-from main import get_items
+from backend.main import get_items
 
 def test_get_items_basic():
     """Test basic functionality of get_items."""
@@ -69,7 +69,7 @@ def test_get_items_edge_cases():
     pass
 """Unit tests for add_item function."""
 import pytest
-from main import add_item
+from backend.main import add_item
 
 def test_add_item_basic():
     """Test basic functionality of add_item."""
@@ -82,7 +82,7 @@ def test_add_item_edge_cases():
     pass
 """Unit tests for update_item function."""
 import pytest
-from main import update_item
+from backend.main import update_item
 
 def test_update_item_basic():
     """Test basic functionality of update_item."""
@@ -95,7 +95,7 @@ def test_update_item_edge_cases():
     pass
 """Unit tests for delete_item function."""
 import pytest
-from main import delete_item
+from backend.main import delete_item
 
 def test_delete_item_basic():
     """Test basic functionality of delete_item."""
