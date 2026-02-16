@@ -2,7 +2,8 @@ name: Autonomous QA Testing with Auto-Fix PRs
 
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+      - '**'
   pull_request:
     branches: [ main, develop ]
   workflow_dispatch:
@@ -200,6 +201,40 @@ jobs:
           testing
           qa-council
         assignees: ${{ github.actor }}
+
+    - name: Create PR for Passing Test Branch
+      if: steps.unit_tests.outputs.exit_code == '0' && github.event_name == 'push' && github.ref_name != 'main' && github.ref_name != 'develop'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const owner = context.repo.owner;
+          const repo = context.repo.repo;
+          const head = `${owner}:${context.ref.replace('refs/heads/', '')}`;
+          const base = 'develop';
+
+          const existing = await github.rest.pulls.list({
+            owner,
+            repo,
+            state: 'open',
+            head,
+            base
+          });
+
+          if (existing.data.length > 0) {
+            core.info(`Open PR already exists: #${existing.data[0].number}`);
+            return;
+          }
+
+          const pr = await github.rest.pulls.create({
+            owner,
+            repo,
+            title: `✅ QA Passed: ${context.ref.replace('refs/heads/', '')}`,
+            head: context.ref.replace('refs/heads/', ''),
+            base,
+            body: `## ✅ QA Council - Tests Passed\n\nAll unit tests passed for branch \`${context.ref.replace('refs/heads/', '')}\`.\n\n- Trigger: ${context.eventName}\n- Run ID: ${context.runId}\n- Workflow: ${context.workflow}\n\nThis PR was automatically opened because the test suite passed.`
+          });
+
+          core.info(`Created PR #${pr.data.number}`);
     
     - name: Comment on PR (if PR event)
       if: github.event_name == 'pull_request'
