@@ -36,5 +36,5 @@ from backend.main import home
 
 def test_home_basic():
     """Test basic functionality of home."""
-    # TODO: Add test implementation
-    pass
+    result = home()
+    assert result == {"message": "Welcome to the Media Collection Tracker API!"}
