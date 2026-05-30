@@ -14,7 +14,7 @@ export async function addItem(item) {
     status: item.status || "unread",
   };
 
-  console.log("Sending payload:", payload); // 👀 Debugging line
+  console.log("Sending payload:", payload);
 
   const response = await fetch(`${BASE_URL}/items`, {
     method: "POST",
@@ -30,4 +30,30 @@ export async function addItem(item) {
   return await response.json();
 }
 
+export async function updateItem(id, partial) {
+  const response = await fetch(`${BASE_URL}/items/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(partial),
+  });
 
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(`Failed to update item: ${JSON.stringify(error)}`);
+  }
+
+  return await response.json();
+}
+
+export async function deleteItem(id) {
+  const response = await fetch(`${BASE_URL}/items/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(`Failed to delete item: ${JSON.stringify(error)}`);
+  }
+
+  return await response.json();
+}

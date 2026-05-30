@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { fetchItems } from "./services/api";
+import { fetchItems, updateItem, deleteItem } from "./services/api";
 import AddItemForm from "./components/AddItemForm";
+import ItemList from "./components/ItemList";
 
 export default function App() {
   const [items, setItems] = useState([]);
@@ -18,19 +19,38 @@ export default function App() {
     loadItems();
   }, []);
 
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      await updateItem(id, { status: newStatus });
+      await loadItems();
+    } catch (error) {
+      console.error("Error updating item:", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this item?")) {
+      return;
+    }
+    try {
+      await deleteItem(id);
+      await loadItems();
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
+  };
+
   return (
-    <div className="max-w-xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Media Collection Tracker Prototype</h1>
+    <div className="container">
+      <h1 className="page-title">Media Collection Tracker Prototype</h1>
 
       <AddItemForm onItemAdded={loadItems} />
 
-      <ul className="mt-6 space-y-2">
-        {items.map((item) => (
-          <li key={item.id} className="border p-2 rounded">
-            <strong>{item.title}</strong> {item.creator} - ({item.category}) - {item.status}
-          </li>
-        ))}
-      </ul>
+      <ItemList
+        items={items}
+        onStatusChange={handleStatusChange}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }

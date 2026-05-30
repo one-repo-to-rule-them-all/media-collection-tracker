@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addItem } from "../services/api"; // Import API helper function that handles POST requests to backend
 
-// ✅ Functional component for adding a new media item (book, movie, game, etc.)
+// Functional component for adding a new media item (book, movie, game, etc.)
 export default function AddItemForm({ onItemAdded }) {
   // --- Local state for form fields ---
   const [title, setTitle] = useState("");       // Stores the title of the item
@@ -14,7 +14,6 @@ export default function AddItemForm({ onItemAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevents the page from refreshing when the form is submitted
     console.log("Submitting item:", { title, creator, category, status });
-
 
     // Build a new item object that matches backend model
     const newItem = {
@@ -29,14 +28,13 @@ export default function AddItemForm({ onItemAdded }) {
       await addItem(newItem);
       console.log("Item added successfully");
       // Notify the parent component that a new item was added
-      // (parent might re-fetch the list of items)
       onItemAdded?.();
 
       // Reset form fields after successful submission
       setTitle("");
       setCreator("");
       setCategory("");
-      setStatus("");
+      setStatus("unread");
     } catch (error) {
       // Catch any network or backend errors
       console.error("Error adding item:", error);
@@ -44,16 +42,15 @@ export default function AddItemForm({ onItemAdded }) {
   };
 
   return (
-    // Form wrapper: handles submission and groups all inputs
-    <form onSubmit={handleSubmit} className="space-y-3">
+    <form onSubmit={handleSubmit} className="form">
       {/* --- Title Input --- */}
       <input
         type="text"
         placeholder="Title"
         value={title}
-        onChange={(e) => setTitle(e.target.value)} // Update local state on input change
-        required // Prevent submission if empty
-        className="border rounded p-2 w-full"
+        onChange={(e) => setTitle(e.target.value)}
+        required
+        className="form-input"
       />
 
       {/* --- Creator Input (author, director, etc.) --- */}
@@ -63,41 +60,37 @@ export default function AddItemForm({ onItemAdded }) {
         value={creator}
         onChange={(e) => setCreator(e.target.value)}
         required
-        className="border rounded p-2 w-full"
+        className="form-input"
       />
 
       {/* --- Category Dropdown --- */}
       <select
         value={category}
-        onChange={(e) => setCategory(e.target.value)} // Update category selection
+        onChange={(e) => setCategory(e.target.value)}
         required
-        className="border rounded p-2 w-full"
+        className="form-select"
       >
         <option value="">Select Category</option>
-        <option value="Book">Book</option>
-        <option value="Movie">Movie</option>
-        <option value="Game">Game</option>
+        <option value="book">Book</option>
+        <option value="movie">Movie</option>
+        <option value="game">Game</option>
       </select>
 
       {/* --- Status Dropdown (reading/watching progress) --- */}
       <select
         value={status}
-        onChange={(e) => setStatus(e.target.value)} // Update status selection
+        onChange={(e) => setStatus(e.target.value)}
         required
-        className="border rounded p-2 w-full"
+        className="form-select"
       >
-        <option value="">Status</option>
-        <option value="Unread">Unread / Not Watched</option>
-        <option value="Read">Read / Watched</option>
-        <option value="In-progress">In Progress</option>
-        <option value="Wishlist">Wishlist</option>
+        <option value="unread">Unread / Not Watched</option>
+        <option value="read">Read / Watched</option>
+        <option value="in-progress">In Progress</option>
+        <option value="wishlist">Wishlist</option>
       </select>
 
       {/* --- Submit Button --- */}
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-      >
+      <button type="submit" className="btn-primary">
         Add Item
       </button>
     </form>
