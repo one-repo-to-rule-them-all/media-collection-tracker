@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
 import os
-from typing import Optional
+from typing import Optional, Literal
 import logging
 
 # --------------------------
@@ -20,7 +20,6 @@ os.makedirs("database", exist_ok=True)
 # --------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "../database/media.db")
-#DB_PATH = os.path.join(BASE_DIR, "../backend/database/media.db")
 
 # ============================
 # Database Helper
@@ -45,6 +44,8 @@ origins = [
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://localhost:3030",
+    "http://127.0.0.1:3030",
 ]
 
 app.add_middleware(
@@ -61,14 +62,14 @@ app.add_middleware(
 class MediaItem(BaseModel):
     title: str
     creator: Optional[str] = ""  # author/director/etc.
-    category: str  # "book", "movie", "game"
-    status: str = "unread"  # default
+    category: Literal["book", "movie", "game"]
+    status: Literal["unread", "in-progress", "read", "wishlist"] = "unread"
 
 class MediaItemUpdate(BaseModel):
     title: Optional[str] = None
     creator: Optional[str] = None
-    category: Optional[str] = None
-    status: Optional[str] = None
+    category: Optional[Literal["book", "movie", "game"]] = None
+    status: Optional[Literal["unread", "in-progress", "read", "wishlist"]] = None
 
 # ============================
 # Routes

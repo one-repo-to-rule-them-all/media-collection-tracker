@@ -3,7 +3,6 @@ import os
 from datetime import datetime
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../database/media.db")
-#DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../backend/database/media.db")
 print(f"Database path: {DB_PATH}")
 
 def create_db():
@@ -26,10 +25,10 @@ def create_db():
 
 def seed_db():
     sample_items = [
-        ("The Great Gatsby", "F. Scott Fitzgerald", "Book", "Unread"),
-        ("Inception", "Christopher Nolan", "Movie", "Watched"),
-        ("The Legend of Zelda: Breath of the Wild 1", "Nintendo", "Game", "Playing"),
-        ("The Lord of The Rings", "J.R.R. Tokien", "Book", "Unread")
+        ("The Great Gatsby", "F. Scott Fitzgerald", "book", "unread"),
+        ("Inception", "Christopher Nolan", "movie", "read"),
+        ("The Legend of Zelda: Breath of the Wild 1", "Nintendo", "game", "in-progress"),
+        ("The Lord of The Rings", "J.R.R. Tokien", "book", "unread")
     ]
     
     conn = sqlite3.connect(DB_PATH)
