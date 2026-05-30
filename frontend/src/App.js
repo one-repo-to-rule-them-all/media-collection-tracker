@@ -29,9 +29,7 @@ export default function App() {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this item?")) {
-      return;
-    }
+    if (!window.confirm("Delete this item?")) return;
     try {
       await deleteItem(id);
       await loadItems();
@@ -41,16 +39,34 @@ export default function App() {
   };
 
   return (
-    <div className="container">
-      <h1 className="page-title">Media Collection Tracker Prototype</h1>
+    <div className="min-h-screen text-neutral-900">
+      <header className="bg-white border-b border-neutral-200">
+        <div className="max-w-4xl mx-auto px-8 py-5 flex items-baseline justify-between">
+          <h1 className="text-base font-semibold tracking-tight">
+            Media Collection
+          </h1>
+          <span className="text-xs text-neutral-500 tabular-nums">
+            {items.length} {items.length === 1 ? "item" : "items"}
+          </span>
+        </div>
+      </header>
 
-      <AddItemForm onItemAdded={loadItems} />
+      <main className="max-w-4xl mx-auto px-8 py-10 space-y-6">
+        <section className="bg-white border border-neutral-200 rounded-xl shadow-sm p-6">
+          <h2 className="text-sm font-semibold text-neutral-900 mb-5">
+            Add item
+          </h2>
+          <AddItemForm onItemAdded={loadItems} />
+        </section>
 
-      <ItemList
-        items={items}
-        onStatusChange={handleStatusChange}
-        onDelete={handleDelete}
-      />
+        <section className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden">
+          <ItemList
+            items={items}
+            onStatusChange={handleStatusChange}
+            onDelete={handleDelete}
+          />
+        </section>
+      </main>
     </div>
   );
 }

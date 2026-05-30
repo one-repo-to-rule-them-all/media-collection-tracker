@@ -17,3 +17,10 @@ frontend/node_modules/
 
 # Logs
 *.log
+
+# Playwright MCP / test artifacts
+.playwright-mcp/
+
+# Local screenshots
+*.png
+!frontend/public/*.png

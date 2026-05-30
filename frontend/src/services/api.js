@@ -1,4 +1,5 @@
-const BASE_URL = "http://127.0.0.1:8000"; // Backend URL
+// Override via REACT_APP_API_BASE in frontend/.env or your shell to point at a non-default backend.
+const BASE_URL = process.env.REACT_APP_API_BASE || "http://127.0.0.1:8000";
 
 export async function fetchItems() {
   const response = await fetch(`${BASE_URL}/items`);

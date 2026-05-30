@@ -1,98 +1,111 @@
 import React, { useState } from "react";
-import { addItem } from "../services/api"; // Import API helper function that handles POST requests to backend
+import { addItem } from "../services/api";
 
-// Functional component for adding a new media item (book, movie, game, etc.)
+const inputClass =
+  "w-full px-3 py-2 text-sm bg-white border border-neutral-200 rounded-md text-neutral-900 placeholder-neutral-400 transition focus:outline-none focus:border-neutral-900 focus:ring-2 focus:ring-neutral-900/5";
+
+const labelClass = "block text-xs font-medium text-neutral-600 mb-1.5";
+
 export default function AddItemForm({ onItemAdded }) {
-  // --- Local state for form fields ---
-  const [title, setTitle] = useState("");       // Stores the title of the item
-  const [creator, setCreator] = useState("");   // Stores the creator (author, director, etc.)
-  const [category, setCategory] = useState(""); // Stores the selected category
-  const [status, setStatus] = useState("unread"); // Stores the read/watch status
-  const [errors, setErrors] = useState({});     // Stores validation messages (currently unused, but ready for future)
+  const [title, setTitle] = useState("");
+  const [creator, setCreator] = useState("");
+  const [category, setCategory] = useState("");
+  const [status, setStatus] = useState("unread");
+  const [submitting, setSubmitting] = useState(false);
 
-  // --- Handles form submission ---
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevents the page from refreshing when the form is submitted
-    console.log("Submitting item:", { title, creator, category, status });
-
-    // Build a new item object that matches backend model
-    const newItem = {
-      title,
-      creator,
-      category,
-      status,
-    };
-
+    e.preventDefault();
+    setSubmitting(true);
     try {
-      // Send data to the backend via the API helper
-      await addItem(newItem);
-      console.log("Item added successfully");
-      // Notify the parent component that a new item was added
+      await addItem({ title, creator, category, status });
       onItemAdded?.();
-
-      // Reset form fields after successful submission
       setTitle("");
       setCreator("");
       setCategory("");
       setStatus("unread");
     } catch (error) {
-      // Catch any network or backend errors
       console.error("Error adding item:", error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form">
-      {/* --- Title Input --- */}
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-        className="form-input"
-      />
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
+        <div className="sm:col-span-2">
+          <label htmlFor="title" className={labelClass}>
+            Title
+          </label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            className={inputClass}
+          />
+        </div>
 
-      {/* --- Creator Input (author, director, etc.) --- */}
-      <input
-        type="text"
-        placeholder="Creator (Author/Director)"
-        value={creator}
-        onChange={(e) => setCreator(e.target.value)}
-        required
-        className="form-input"
-      />
+        <div>
+          <label htmlFor="creator" className={labelClass}>
+            Creator
+          </label>
+          <input
+            id="creator"
+            type="text"
+            value={creator}
+            onChange={(e) => setCreator(e.target.value)}
+            className={inputClass}
+          />
+        </div>
 
-      {/* --- Category Dropdown --- */}
-      <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        required
-        className="form-select"
-      >
-        <option value="">Select Category</option>
-        <option value="book">Book</option>
-        <option value="movie">Movie</option>
-        <option value="game">Game</option>
-      </select>
+        <div>
+          <label htmlFor="category" className={labelClass}>
+            Category
+          </label>
+          <select
+            id="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+            className={inputClass}
+          >
+            <option value="">Select…</option>
+            <option value="book">Book</option>
+            <option value="movie">Movie</option>
+            <option value="game">Game</option>
+          </select>
+        </div>
 
-      {/* --- Status Dropdown (reading/watching progress) --- */}
-      <select
-        value={status}
-        onChange={(e) => setStatus(e.target.value)}
-        required
-        className="form-select"
-      >
-        <option value="unread">Unread / Not Watched</option>
-        <option value="read">Read / Watched</option>
-        <option value="in-progress">In Progress</option>
-        <option value="wishlist">Wishlist</option>
-      </select>
+        <div className="sm:col-span-2">
+          <label htmlFor="status" className={labelClass}>
+            Status
+          </label>
+          <select
+            id="status"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            required
+            className={inputClass}
+          >
+            <option value="unread">Unread</option>
+            <option value="in-progress">In progress</option>
+            <option value="read">Read</option>
+            <option value="wishlist">Wishlist</option>
+          </select>
+        </div>
+      </div>
 
-      {/* --- Submit Button --- */}
-      <button type="submit" className="btn-primary">
-        Add Item
-      </button>
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="inline-flex items-center px-3.5 py-2 text-sm font-medium text-white bg-neutral-900 rounded-md hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition"
+        >
+          {submitting ? "Adding…" : "Add item"}
+        </button>
+      </div>
     </form>
   );
 }
